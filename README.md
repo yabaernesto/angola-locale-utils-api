@@ -71,4 +71,34 @@ A API possui três endpoints principais, cada um voltado para uma funcionalidade
         }
       ```
 
+## Exemplo de Consumo com Axios (Node.js ou Frontend)
+```js
+const axios = require('axios');
+const baseURL = 'http://localhost:3000';
+
+async function getFormattedCurrency(amount) {
+  const { data } = await axios.post(`${baseURL}/formatCurrency`, { amount });
+  return data.formattedCurrency;
+}
+
+async function getFormattedDate(date, format = 'DD/MM/YYYY') {
+  const { data } = await axios.post(`${baseURL}/formatDate`, { date, format });
+  return data.formattedDate;
+}
+
+async function getFormattedNumber(number) {
+  const { data } = await axios.post(`${baseURL}/formatNumber`, { number });
+  return data.formattedNumber;
+}
+
+// Uso direto dos resultados
+async main() => {
+  console.log(await getFormattedCurrency(1500.50));
+  console.log(await getFormattedDate('2024-11-01', 'YYYY-MM-DD'));
+  console.log(await getFormattedNumber(123456.789));
+}
+
+main()
+```
+
 Nota: Todos os endpoints recebem dados via método POST e retornam respostas em formato JSON, facilitando a integração com outros sistemas ou front-ends.
